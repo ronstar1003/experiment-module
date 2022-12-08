@@ -1,19 +1,24 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { FaLock, FaLockOpen } from 'react-icons/fa'
-import IterationRow from './IterationRow'
+import IterationModule from './IterationModule'
 import NewIterationRow from './NewIterationRow'
 
-function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset }) {
+function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset, onIterationSelectionChange }) {
   const defaultIsAddingIteration = !imList.length
   const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
+  const [openedImTitle, setOpenedImTitle] = useState('')
 
   const newIterationInputRef = useRef()
 
+  const handleImRowClick = (imTitle) => {
+    setOpenedImTitle(imTitle)
+  }
   const handleRowClick = () => {
     if (isClosed) onRowClick(id)
     else onRowClick(-1)
   }
   const handleAddIteration = () => {
+    setOpenedImTitle('')
     setIsAddingIteration(true)
   }
   const handleGenerateIteration = () => {
@@ -33,6 +38,14 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
   const handleCancel = () => {
     if (imList.length) { setIsAddingIteration(false) }
   }
+  const handleIterationSelectionChange = (imTitle, selection) => {
+    if (onIterationSelectionChange(id, imTitle, selection)) {
+      return true
+    }
+  }
+  const handleIterationDone = () => {
+    setOpenedImTitle('')
+  }
 
   useEffect(() => {
     setIsAddingIteration(defaultIsAddingIteration)
@@ -49,11 +62,15 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
       <div className='experiment-body'>
         <div className='iteration-list'>
           {imList.map((im, i) => (
-            <IterationRow
+            <IterationModule
               key={im.title}
               index={i}
               title={im.title}
               selection={im.selection}
+              isClosed={openedImTitle !== im.title}
+              onRowClick={handleImRowClick}
+              onSelectionChange={handleIterationSelectionChange}
+              onDone={handleIterationDone}
             />
           ))}
           {

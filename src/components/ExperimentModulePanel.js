@@ -89,6 +89,23 @@ export default function ExperimentModulePanel () {
     return true
   }, [])
 
+  const handleIterationSelectionChange = useCallback((emId, imTitle, selection) => {
+    setEmList(emList => emList.map(em => {
+      if (emId !== em.id) return em
+      return {
+        ...em,
+        imList: em.imList.map(im => {
+          if (im.title !== imTitle) return im
+          return {
+            ...im,
+            selection
+          }
+        })
+      }
+    }))
+    return true
+  })
+
   return (
     <div className='experiment-module-panel'>
       {emList.map((em, i) => (
@@ -102,6 +119,7 @@ export default function ExperimentModulePanel () {
           onAddIteration={handleAddIteration}
           onToggleLock={handleToggleLock}
           onReset={handleReset}
+          onIterationSelectionChange={handleIterationSelectionChange}
         />
       ))}
     </div>
