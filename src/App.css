@@ -92,6 +92,7 @@ a {
   color: #737372;
   padding: 10px;
   border-bottom: 2px solid #191919;
+  cursor: pointer;
 }
 
 .iteration-title {
@@ -118,12 +119,13 @@ a {
 
 .iteration-input {
   display: inline-block;
+  flex-grow: 1;
   color: #737372;
   margin-left: 20px;
   background: none;
   border: none;
-  font-size: 1rem;
-  flex-grow: 1;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 .iteration-input:active, .iteration-input:focus {

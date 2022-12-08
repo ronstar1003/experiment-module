@@ -66,6 +66,17 @@ export default function ExperimentModulePanel () {
     return true
   }
 
+  const handleToggleLock = (emId) => {
+    setEmList((emList) => emList.map(em => {
+      if (emId !== em.id) return em
+      return {
+        ...em,
+        isLocked: !em.isLocked
+      }
+    }))
+    return true
+  }
+
   return (
     <div className='experiment-module-panel'>
       {emList.map((em, i) => (
@@ -77,6 +88,7 @@ export default function ExperimentModulePanel () {
           isClosed={em.id !== openedEmId}
           onRowClick={handleEMClick}
           onAddIteration={handleAddIteration}
+          onToggleLock={handleToggleLock}
         />
       ))}
     </div>

@@ -3,7 +3,7 @@ import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationRow from './IterationRow'
 import NewIterationRow from './NewIterationRow'
 
-export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration }) {
+export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock }) {
   const defaultIsAddingIteration = !imList.length
   const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
 
@@ -12,16 +12,19 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
   const handleAddIteration = () => {
     setIsAddingIteration(true)
   }
-  const handleCancel = () => {
-    if (imList.length) { setIsAddingIteration(false) }
-  }
   const handleGenerateIteration = () => {
     const iterationTitle = `Iteration ${imList.length + 1}`
     if (onAddIteration(id, iterationTitle)) { setIsAddingIteration(false) }
   }
+  const handleToggleLock = () => {
+    onToggleLock(id)
+  }
   const handleDone = () => {
     const iterationTitle = newIterationInputRef.current.value
     if (onAddIteration(id, iterationTitle)) { setIsAddingIteration(false) }
+  }
+  const handleCancel = () => {
+    if (imList.length) { setIsAddingIteration(false) }
   }
 
   useEffect(() => {
@@ -67,7 +70,7 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
             </>)
           : (
             <>
-              <button className='button'>lock</button>
+              <button className='button' onClick={handleToggleLock}>{isLocked ? 'unlock' : 'lock'}</button>
               <button className='button'>reset</button>
               <button className='button active' onClick={handleAddIteration}>+ add iteration</button>
             </>)}
