@@ -1,9 +1,9 @@
-import React from "react";
-import ExperimentModulePanel from "./components/ExperimentModulePanel";
-import "./App.css";
+import React from 'react'
+import ExperimentModulePanel from './components/ExperimentModulePanel'
+import './App.css'
 
-function App() {
-  return <ExperimentModulePanel></ExperimentModulePanel>;
+function App () {
+  return <ExperimentModulePanel />
 }
 
-export default App;
+export default App

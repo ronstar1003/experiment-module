@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.button {
+  background: none;
+  border: none;
+  color: #757475;
+  text-transform: uppercase;
+  padding: 10px;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.button.active {
+  color: #ffffff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.experiment-module-panel {
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 10px;
+  background-color: #000000;
+  width: 700px;
 }
 
-.App-link {
-  color: #61dafb;
+.experiment-module {
+  width: 100%;
+  padding: 10px;
+  background-color: #191919;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.experiment-module:first-child {
+  margin-top: 0px;
+}
+
+.experiment-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.experiment-title {
+  color: #757475;
+}
+
+.experiment-locked {
+  color: #757475;
+}
+
+.experiment-title.active {
+  color: #ffffff;
+}
+
+.experiment-body {
+  margin-top: 10px;
+}
+
+.experiment-footer {
+  display: flex;
+}
+
+.experiment-module.closed > .experiment-body,
+.experiment-module.closed > .experiment-footer {
+  display: none;
+}
+
+.experiment-footer > button:first-child {
+  margin-left: auto;
+}
+
+.experiment-footer > button {
+  margin-left: 20px;
+}
+
+.iteration-list {
+  background: #000000;
+  border-radius: 10px;
+}
+
+.iteration-row {
+  display: flex;
+  color: #737372;
+  padding: 10px;
+  border-bottom: 2px solid #191919;
+}
+
+.iteration-title {
+  margin-left: 20px;
+}
+
+.iteration-selection {
+  margin-left: auto;
 }
