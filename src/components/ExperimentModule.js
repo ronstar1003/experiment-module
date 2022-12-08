@@ -11,6 +11,7 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
   const newIterationInputRef = useRef()
 
   const handleImRowClick = (imTitle) => {
+    if (isLocked) return
     setOpenedImTitle(imTitle)
   }
   const handleRowClick = () => {
