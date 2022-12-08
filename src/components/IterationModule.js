@@ -28,7 +28,7 @@ export default function IterationModule ({ index, title, selection, isClosed, on
       <div className='iteration-info'>
         <div className='iteration-head'>
           <div className='iteration-title'>{title}</div>
-          {isClosed && <div className={`iteration-selection ${selection && 'active'}`}>{selection.slice(0, 20)}{selection.length > 20 && '...'}</div>}
+          {isClosed && <div className={`iteration-selection ${selection && 'active'}`} title={selection}>{selection.slice(0, 20)}{selection.length > 20 && '...'}</div>}
         </div>
         {!isClosed && (
           <>
