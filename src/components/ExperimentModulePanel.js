@@ -141,7 +141,7 @@ export default function ExperimentModulePanel () {
     return () => {
       document.removeEventListener('keyup', handleKeyup)
     }
-  }, [])
+  }, [openedEmId, refMap])
 
   return (
     <div className='experiment-module-panel'>
