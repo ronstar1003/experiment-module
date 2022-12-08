@@ -52,6 +52,7 @@ export default function ExperimentModulePanel () {
     if (iterationTitle === '') return false
     setEmList((emList) => emList.map(em => {
       if (emId !== em.id) return em
+      if (em.imList.findIndex(im => im.title === iterationTitle) !== -1) return em
       return {
         ...em,
         imList: [
