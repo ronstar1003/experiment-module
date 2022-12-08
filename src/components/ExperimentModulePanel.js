@@ -48,6 +48,22 @@ export default function ExperimentModulePanel () {
     setOpenedEmId(emId)
   }
 
+  const handleAddIteration = (emId, iterationTitle) => {
+    setEmList((emList) => emList.map(em => {
+      if (emId !== em.id) return em
+      return {
+        ...em,
+        imList: [
+          ...em.imList,
+          {
+            title: iterationTitle,
+            selection: ''
+          }
+        ]
+      }
+    }))
+  }
+
   return (
     <div className='experiment-module-panel'>
       {emList.map((em, i) => (
@@ -58,6 +74,7 @@ export default function ExperimentModulePanel () {
           isLocked={em.isLocked}
           isClosed={em.id !== openedEmId}
           onRowClick={handleEMClick}
+          onAddIteration={handleAddIteration}
         />
       ))}
     </div>

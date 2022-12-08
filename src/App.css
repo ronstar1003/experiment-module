@@ -123,6 +123,7 @@ a {
   background: none;
   border: none;
   font-size: 1rem;
+  flex-grow: 1;
 }
 
 .iteration-input:active, .iteration-input:focus {

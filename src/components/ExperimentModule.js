@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationRow from './IterationRow'
 import NewIterationRow from './NewIterationRow'
 
-export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick }) {
-  const [isAddingIteration, setIsAddingIteration] = useState(!imList.length)
+export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration }) {
+  const defaultIsAddingIteration = !imList.length
+  const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
 
   const handleAddIteration = () => {
     setIsAddingIteration(true)
@@ -13,8 +14,14 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
     if (imList.length) { setIsAddingIteration(false) }
   }
   const handleGenerateIteration = () => {
-
+    const iterationTitle = `Iteration ${imList.length + 1}`
+    onAddIteration(id, iterationTitle)
+    setIsAddingIteration(false)
   }
+
+  useEffect(() => {
+    setIsAddingIteration(defaultIsAddingIteration)
+  }, [isClosed, defaultIsAddingIteration])
 
   return (
     <div className={`experiment-module ${isClosed && 'closed'} ${imList.length === 0 && 'empty'} ${isLocked && 'locked'}`}>
