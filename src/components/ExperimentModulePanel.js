@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import ExperimentModule from './ExperimentModule'
 
 export default function ExperimentModulePanel () {
@@ -44,11 +44,11 @@ export default function ExperimentModulePanel () {
 
   const [openedEmId, setOpenedEmId] = useState(1)
 
-  const handleEMClick = (emId) => {
+  const handleEMClick = useCallback((emId) => {
     setOpenedEmId(emId)
-  }
+  }, [])
 
-  const handleAddIteration = (emId, iterationTitle) => {
+  const handleAddIteration = useCallback((emId, iterationTitle) => {
     if (iterationTitle === '') return false
     setEmList((emList) => emList.map(em => {
       if (emId !== em.id) return em
@@ -64,9 +64,9 @@ export default function ExperimentModulePanel () {
       }
     }))
     return true
-  }
+  }, [])
 
-  const handleToggleLock = (emId) => {
+  const handleToggleLock = useCallback((emId) => {
     setEmList((emList) => emList.map(em => {
       if (emId !== em.id) return em
       return {
@@ -75,9 +75,9 @@ export default function ExperimentModulePanel () {
       }
     }))
     return true
-  }
+  }, [])
 
-  const handleReset = (emId) => {
+  const handleReset = useCallback((emId) => {
     setEmList((emList) => emList.map(em => {
       if (emId !== em.id) return em
       return {
@@ -86,7 +86,7 @@ export default function ExperimentModulePanel () {
       }
     }))
     return true
-  }
+  }, [])
 
   return (
     <div className='experiment-module-panel'>

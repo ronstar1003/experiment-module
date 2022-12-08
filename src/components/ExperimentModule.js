@@ -3,7 +3,9 @@ import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationRow from './IterationRow'
 import NewIterationRow from './NewIterationRow'
 
-export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset }) {
+function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset }) {
+  console.log(id)
+
   const defaultIsAddingIteration = !imList.length
   const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
 
@@ -81,3 +83,7 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
     </div>
   )
 }
+
+const MemoizedExperimentModule = React.memo(ExperimentModule)
+
+export default MemoizedExperimentModule
