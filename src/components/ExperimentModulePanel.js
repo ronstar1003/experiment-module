@@ -44,14 +44,20 @@ export default function ExperimentModulePanel () {
 
   const [openedEmId, setOpenedEmId] = useState(1)
 
+  const handleEMClick = (emId) => {
+    setOpenedEmId(emId)
+  }
+
   return (
     <div className='experiment-module-panel'>
       {emList.map((em, i) => (
         <ExperimentModule
           key={em.id}
+          id={em.id}
           imList={em.imList}
           isLocked={em.isLocked}
           isClosed={em.id !== openedEmId}
+          onRowClick={handleEMClick}
         />
       ))}
     </div>
