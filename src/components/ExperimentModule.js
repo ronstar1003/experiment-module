@@ -75,7 +75,7 @@ const ExperimentModule = forwardRef(function ExperimentModule ({ id, imList, isL
             />
           ))}
           {
-            isAddingIteration && <NewIterationRow key='__new__' ref={ref} index={imList.length} />
+            isAddingIteration && <NewIterationRow key='__new__' ref={ref} index={imList.length} onReturnKeyUp={handleDone} />
           }
         </div>
         {
