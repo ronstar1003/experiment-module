@@ -1,14 +1,12 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationModule from './IterationModule'
 import NewIterationRow from './NewIterationRow'
 
-function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset, onIterationSelectionChange, onIterationRemove }) {
+const ExperimentModule = forwardRef(function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset, onIterationSelectionChange, onIterationRemove }, ref) {
   const defaultIsAddingIteration = !imList.length
   const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
   const [openedImTitle, setOpenedImTitle] = useState('')
-
-  const newIterationInputRef = useRef()
 
   const handleImRowClick = (imTitle) => {
     if (isLocked) return
@@ -33,7 +31,7 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
     onReset(id)
   }
   const handleDone = () => {
-    const iterationTitle = newIterationInputRef.current.value
+    const iterationTitle = ref.current.value
     if (onAddIteration(id, iterationTitle)) { setOpenedImTitle(''); setIsAddingIteration(false) }
   }
   const handleCancel = () => {
@@ -77,7 +75,7 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
             />
           ))}
           {
-            isAddingIteration && <NewIterationRow key='__new__' ref={newIterationInputRef} index={imList.length} />
+            isAddingIteration && <NewIterationRow key='__new__' ref={ref} index={imList.length} />
           }
         </div>
         {
@@ -108,7 +106,7 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
       </div>
     </div>
   )
-}
+})
 
 const MemoizedExperimentModule = React.memo(ExperimentModule)
 

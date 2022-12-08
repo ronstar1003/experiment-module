@@ -1,48 +1,58 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect, createRef } from 'react'
 import ExperimentModule from './ExperimentModule'
 
+const defaultEmList = [
+  {
+    id: 1,
+    imList: [{
+      title: 'Iteration 1',
+      selection: ''
+    }, {
+      title: 'Iteration 2',
+      selection: 'medium length'
+    }],
+    isLocked: false
+  },
+  {
+    id: 2,
+    imList: [{
+      title: 'Iteration 1',
+      selection: 'short'
+    }, {
+      title: 'Iteration 2',
+      selection: 'medium length'
+    }],
+    isLocked: true
+  },
+  {
+    id: 3,
+    imList: [],
+    isLocked: false
+  },
+  {
+    id: 4,
+    imList: [],
+    isLocked: false
+  },
+  {
+    id: 5,
+    imList: [],
+    isLocked: false
+  }
+]
+
 export default function ExperimentModulePanel () {
-  const [emList, setEmList] = useState([
-    {
-      id: 1,
-      imList: [{
-        title: 'Iteration 1',
-        selection: ''
-      }, {
-        title: 'Iteration 2',
-        selection: 'medium length'
-      }],
-      isLocked: false
-    },
-    {
-      id: 2,
-      imList: [{
-        title: 'Iteration 1',
-        selection: 'short'
-      }, {
-        title: 'Iteration 2',
-        selection: 'medium length'
-      }],
-      isLocked: true
-    },
-    {
-      id: 3,
-      imList: [],
-      isLocked: false
-    },
-    {
-      id: 4,
-      imList: [],
-      isLocked: false
-    },
-    {
-      id: 5,
-      imList: [],
-      isLocked: false
-    }
-  ])
+  const [emList, setEmList] = useState(defaultEmList)
 
   const [openedEmId, setOpenedEmId] = useState(1)
+
+  const [refMap, setRefMap] = useState(defaultEmList.reduce((obj, em) => ({ ...obj, [em.id]: createRef() }), {}))
+
+  useEffect(() => {
+    setRefMap((refMap) => {
+      return emList.reduce((obj, em) => ({ ...obj, [em.id]: refMap[em.id] || createRef() }), {})
+    })
+  }, [emList])
 
   const handleEMClick = useCallback((emId) => {
     setOpenedEmId(emId)
@@ -117,6 +127,22 @@ export default function ExperimentModulePanel () {
     return true
   }, [])
 
+  useEffect(() => {
+    const handleKeyup = e => {
+      if (e.keyCode >= 65 && e.keyCode <= 90) {
+        if (openedEmId === -1) return
+        if (document.activeElement === refMap[openedEmId].current) return
+        refMap[openedEmId].current.focus()
+        refMap[openedEmId].current.value += e.key
+      }
+    }
+    document.addEventListener('keyup', handleKeyup)
+
+    return () => {
+      document.removeEventListener('keyup', handleKeyup)
+    }
+  }, [])
+
   return (
     <div className='experiment-module-panel'>
       {emList.map((em, i) => (
@@ -132,6 +158,7 @@ export default function ExperimentModulePanel () {
           onReset={handleReset}
           onIterationSelectionChange={handleIterationSelectionChange}
           onIterationRemove={handleIterationRemove}
+          ref={refMap[em.id]}
         />
       ))}
     </div>
