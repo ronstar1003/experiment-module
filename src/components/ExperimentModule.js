@@ -4,8 +4,6 @@ import IterationRow from './IterationRow'
 import NewIterationRow from './NewIterationRow'
 
 function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset }) {
-  console.log(id)
-
   const defaultIsAddingIteration = !imList.length
   const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
 
@@ -80,8 +78,12 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
           : (
             <>
               <button className='button' onClick={handleToggleLock}>{isLocked ? 'unlock' : 'lock'}</button>
-              <button className='button' onClick={handleReset}>reset</button>
-              <button className='button active' onClick={handleAddIteration}>+ add iteration</button>
+              {!isLocked && (
+                <>
+                  <button className='button' onClick={handleReset}>reset</button>
+                  <button className='button active' onClick={handleAddIteration}>+ add iteration</button>
+                </>
+              )}
             </>)}
       </div>
     </div>
