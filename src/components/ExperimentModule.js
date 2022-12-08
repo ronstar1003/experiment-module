@@ -3,7 +3,7 @@ import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationRow from './IterationRow'
 import NewIterationRow from './NewIterationRow'
 
-export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock }) {
+export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset }) {
   const defaultIsAddingIteration = !imList.length
   const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
 
@@ -18,6 +18,9 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
   }
   const handleToggleLock = () => {
     onToggleLock(id)
+  }
+  const handleReset = () => {
+    onReset(id)
   }
   const handleDone = () => {
     const iterationTitle = newIterationInputRef.current.value
@@ -71,7 +74,7 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
           : (
             <>
               <button className='button' onClick={handleToggleLock}>{isLocked ? 'unlock' : 'lock'}</button>
-              <button className='button'>reset</button>
+              <button className='button' onClick={handleReset}>reset</button>
               <button className='button active' onClick={handleAddIteration}>+ add iteration</button>
             </>)}
       </div>

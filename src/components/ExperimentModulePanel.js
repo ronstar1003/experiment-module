@@ -77,6 +77,17 @@ export default function ExperimentModulePanel () {
     return true
   }
 
+  const handleReset = (emId) => {
+    setEmList((emList) => emList.map(em => {
+      if (emId !== em.id) return em
+      return {
+        ...em,
+        imList: []
+      }
+    }))
+    return true
+  }
+
   return (
     <div className='experiment-module-panel'>
       {emList.map((em, i) => (
@@ -89,6 +100,7 @@ export default function ExperimentModulePanel () {
           onRowClick={handleEMClick}
           onAddIteration={handleAddIteration}
           onToggleLock={handleToggleLock}
+          onReset={handleReset}
         />
       ))}
     </div>
