@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationRow from './IterationRow'
 import NewIterationRow from './NewIterationRow'
@@ -6,6 +6,8 @@ import NewIterationRow from './NewIterationRow'
 export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration }) {
   const defaultIsAddingIteration = !imList.length
   const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
+
+  const newIterationInputRef = useRef()
 
   const handleAddIteration = () => {
     setIsAddingIteration(true)
@@ -15,8 +17,11 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
   }
   const handleGenerateIteration = () => {
     const iterationTitle = `Iteration ${imList.length + 1}`
-    onAddIteration(id, iterationTitle)
-    setIsAddingIteration(false)
+    if (onAddIteration(id, iterationTitle)) { setIsAddingIteration(false) }
+  }
+  const handleDone = () => {
+    const iterationTitle = newIterationInputRef.current.value
+    if (onAddIteration(id, iterationTitle)) { setIsAddingIteration(false) }
   }
 
   useEffect(() => {
@@ -42,7 +47,7 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
             />
           ))}
           {
-            isAddingIteration && <NewIterationRow key='__new__' index={imList.length} />
+            isAddingIteration && <NewIterationRow key='__new__' ref={newIterationInputRef} index={imList.length} />
           }
         </div>
         {
@@ -58,7 +63,7 @@ export default function ExperimentModule ({ id, imList, isLocked, isClosed, onRo
           ? (
             <>
               <button className='button' onClick={handleCancel}>cancel</button>
-              <button className='button active'>done</button>
+              <button className='button active' onClick={handleDone}>done</button>
             </>)
           : (
             <>

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
-export default function NewIterationRow ({ index, title, selection }) {
+const NewIterationRow = forwardRef(({ index, title, selection }, ref) => {
   return (
     <div className='iteration-row'>
       <div className='iteration-no'>EM-{index + 1}</div>
-      <input className='iteration-input' type='text' placeholder='Adding iteration...' />
+      <input className='iteration-input' ref={ref} type='text' placeholder='Adding iteration...' />
     </div>
   )
-}
+})
+
+export default NewIterationRow

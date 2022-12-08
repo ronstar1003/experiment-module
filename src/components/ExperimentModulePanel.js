@@ -49,6 +49,7 @@ export default function ExperimentModulePanel () {
   }
 
   const handleAddIteration = (emId, iterationTitle) => {
+    if (iterationTitle === '') return false
     setEmList((emList) => emList.map(em => {
       if (emId !== em.id) return em
       return {
@@ -62,6 +63,7 @@ export default function ExperimentModulePanel () {
         ]
       }
     }))
+    return true
   }
 
   return (
