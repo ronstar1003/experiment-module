@@ -3,7 +3,7 @@ import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationModule from './IterationModule'
 import NewIterationRow from './NewIterationRow'
 
-function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset, onIterationSelectionChange }) {
+function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset, onIterationSelectionChange, onIterationRemove }) {
   const defaultIsAddingIteration = !imList.length
   const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
   const [openedImTitle, setOpenedImTitle] = useState('')
@@ -23,7 +23,7 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
   }
   const handleGenerateIteration = () => {
     const iterationTitle = `Iteration ${imList.length + 1}`
-    if (onAddIteration(id, iterationTitle)) { setIsAddingIteration(false) }
+    if (onAddIteration(id, iterationTitle)) { setOpenedImTitle(''); setIsAddingIteration(false) }
   }
   const handleToggleLock = () => {
     onToggleLock(id)
@@ -33,18 +33,19 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
   }
   const handleDone = () => {
     const iterationTitle = newIterationInputRef.current.value
-    if (onAddIteration(id, iterationTitle)) { setIsAddingIteration(false) }
+    if (onAddIteration(id, iterationTitle)) { setOpenedImTitle(''); setIsAddingIteration(false) }
   }
   const handleCancel = () => {
     if (imList.length) { setIsAddingIteration(false) }
   }
   const handleIterationSelectionChange = (imTitle, selection) => {
-    if (onIterationSelectionChange(id, imTitle, selection)) {
-      return true
-    }
+    onIterationSelectionChange(id, imTitle, selection)
   }
   const handleIterationDone = () => {
     setOpenedImTitle('')
+  }
+  const handleIterationRemove = (imTitle) => {
+    onIterationRemove(id, imTitle)
   }
 
   useEffect(() => {
@@ -71,6 +72,7 @@ function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIt
               onRowClick={handleImRowClick}
               onSelectionChange={handleIterationSelectionChange}
               onDone={handleIterationDone}
+              onRemove={handleIterationRemove}
             />
           ))}
           {

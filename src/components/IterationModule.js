@@ -10,7 +10,7 @@ function SelectionTag ({ value, onClick, active = false }) {
   return <div className={`iteration-selection-tag ${active && 'active'}`} onClick={handleClick}>{value}</div>
 }
 
-export default function IterationModule ({ index, title, selection, isClosed, onRowClick, onSelectionChange, onDone }) {
+export default function IterationModule ({ index, title, selection, isClosed, onRowClick, onSelectionChange, onDone, onRemove }) {
   const handleRowClick = () => {
     if (isClosed) onRowClick(title)
   }
@@ -20,6 +20,9 @@ export default function IterationModule ({ index, title, selection, isClosed, on
   }
   const handleDone = () => {
     onDone()
+  }
+  const handleRemove = () => {
+    onRemove(title)
   }
 
   return (
@@ -36,7 +39,7 @@ export default function IterationModule ({ index, title, selection, isClosed, on
               {selectionTagValues.map(value => <SelectionTag key={value} value={value} active={selection === value} onClick={handleTagClick} />)}
             </div>
             <div className='iteration-footer'>
-              <button className='button'>remove</button>
+              <button className='button' onClick={handleRemove}>remove</button>
               <button className='button active' onClick={handleDone}>done</button>
             </div>
           </>

@@ -104,7 +104,18 @@ export default function ExperimentModulePanel () {
       }
     }))
     return true
-  })
+  }, [])
+
+  const handleIterationRemove = useCallback((emId, imTitle) => {
+    setEmList(emList => emList.map(em => {
+      if (emId !== em.id) return em
+      return {
+        ...em,
+        imList: em.imList.filter(im => im.title !== imTitle)
+      }
+    }))
+    return true
+  }, [])
 
   return (
     <div className='experiment-module-panel'>
@@ -120,6 +131,7 @@ export default function ExperimentModulePanel () {
           onToggleLock={handleToggleLock}
           onReset={handleReset}
           onIterationSelectionChange={handleIterationSelectionChange}
+          onIterationRemove={handleIterationRemove}
         />
       ))}
     </div>
