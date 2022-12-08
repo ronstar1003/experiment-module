@@ -4,7 +4,7 @@ import IterationRow from './IterationRow'
 
 export default function ExperimentModule ({ imList, isLocked, isClosed }) {
   return (
-    <div className={`experiment-module ${isClosed && 'closed'}`}>
+    <div className={`experiment-module ${isClosed && 'closed'} ${imList.length === 0 && 'empty'} ${isLocked && 'locked'}`}>
       <div className='experiment-head'>
         <div className='experiment-title'>Experiment Module</div>
         <div className='experiment-locked'>

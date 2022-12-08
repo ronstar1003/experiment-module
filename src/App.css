@@ -45,12 +45,16 @@
   color: #757475;
 }
 
-.experiment-locked {
-  color: #757475;
+.experiment-module:not(.locked):not(.empty) .experiment-title {
+  color: #ffffff;
 }
 
-.experiment-title.active {
-  color: #ffffff;
+.experiment-module.empty .experiment-locked {
+  display: none;
+}
+
+.experiment-locked {
+  color: #757475;
 }
 
 .experiment-body {
