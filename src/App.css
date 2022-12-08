@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+}
+
 .button {
   background: none;
   border: none;
@@ -110,4 +114,26 @@
   border-radius: 50%;
   background-color: #4aa24a;
   transform: translateY(-50%);
+}
+
+.iteration-input {
+  display: inline-block;
+  color: #737372;
+  margin-left: 20px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+}
+
+.iteration-input:active, .iteration-input:focus {
+  outline: none;
+}
+
+.new-iteration-hint {
+  background-color: #000000;
+  margin: 0;
+  margin-top: 10px;
+  padding: 10px;
+  color: #737372;
+  border-radius: 10px;
 }
