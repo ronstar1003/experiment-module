@@ -91,5 +91,19 @@
 }
 
 .iteration-selection {
+  position: relative;
   margin-left: auto;
+  margin-right: 20px;
+}
+
+.iteration-selection.active::after {
+  content: ' ';
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #4aa24a;
+  transform: translateY(-50%);
 }

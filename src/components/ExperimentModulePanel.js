@@ -7,7 +7,7 @@ export default function ExperimentModulePanel () {
       id: 1,
       imList: [{
         title: 'Iteration 1',
-        selection: 'short'
+        selection: ''
       }, {
         title: 'Iteration 2',
         selection: 'medium length'
@@ -24,6 +24,21 @@ export default function ExperimentModulePanel () {
         selection: 'medium length'
       }],
       isLocked: true
+    },
+    {
+      id: 3,
+      imList: [],
+      isLocked: false
+    },
+    {
+      id: 4,
+      imList: [],
+      isLocked: false
+    },
+    {
+      id: 5,
+      imList: [],
+      isLocked: false
     }
   ])
 
