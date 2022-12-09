@@ -3,9 +3,14 @@ import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationModule from './IterationModule'
 import NewIterationRow from './NewIterationRow'
 
-const ExperimentModule = forwardRef(function ExperimentModule ({ id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock, onReset, onIterationSelectionChange, onIterationRemove }, ref) {
+const ExperimentModule = forwardRef(function ExperimentModule (
+  {
+    id, imList, isLocked, isClosed, onRowClick, onAddIteration, onToggleLock,
+    onReset, onIterationSelectionChange, onIterationRemove
+  }, ref) {
   const defaultIsAddingIteration = !imList.length
-  const [isAddingIteration, setIsAddingIteration] = useState(defaultIsAddingIteration)
+  const [isAddingIteration, setIsAddingIteration] =
+    useState(defaultIsAddingIteration)
   const [openedImTitle, setOpenedImTitle] = useState('')
 
   const handleImRowClick = (imTitle) => {
@@ -22,7 +27,10 @@ const ExperimentModule = forwardRef(function ExperimentModule ({ id, imList, isL
   }
   const handleGenerateIteration = () => {
     const iterationTitle = `Iteration ${imList.length + 1}`
-    if (onAddIteration(id, iterationTitle)) { setOpenedImTitle(''); setIsAddingIteration(false) }
+    if (onAddIteration(id, iterationTitle)) {
+      setOpenedImTitle('')
+      setIsAddingIteration(false)
+    }
   }
   const handleToggleLock = () => {
     onToggleLock(id)
@@ -32,7 +40,10 @@ const ExperimentModule = forwardRef(function ExperimentModule ({ id, imList, isL
   }
   const handleDone = () => {
     const iterationTitle = ref.current.value
-    if (onAddIteration(id, iterationTitle)) { setOpenedImTitle(''); setIsAddingIteration(false) }
+    if (onAddIteration(id, iterationTitle)) {
+      setOpenedImTitle('')
+      setIsAddingIteration(false)
+    }
   }
   const handleCancel = () => {
     if (imList.length) { setIsAddingIteration(false) }
@@ -52,7 +63,9 @@ const ExperimentModule = forwardRef(function ExperimentModule ({ id, imList, isL
   }, [isClosed, defaultIsAddingIteration])
 
   return (
-    <div className={`experiment-module ${isClosed && 'closed'} ${imList.length === 0 && 'empty'} ${isLocked && 'locked'}`}>
+    <div className={`experiment-module ${isClosed && 'closed'}
+    ${imList.length === 0 && 'empty'} ${isLocked && 'locked'}`}
+    >
       <div className='experiment-head' onClick={handleRowClick}>
         <div className='experiment-title'>Experiment Module</div>
         <div className='experiment-locked'>
@@ -75,13 +88,20 @@ const ExperimentModule = forwardRef(function ExperimentModule ({ id, imList, isL
             />
           ))}
           {
-            isAddingIteration && <NewIterationRow key='__new__' ref={ref} index={imList.length} onReturnKeyUp={handleDone} />
+            isAddingIteration && (
+              <NewIterationRow
+                key='__new__' ref={ref}
+                index={imList.length} onReturnKeyUp={handleDone}
+              />)
           }
         </div>
         {
           isAddingIteration && (
             <p className='new-iteration-hint'>
-              To add a new iteration, start typing a prompt or <a href='javascript:void(0)' onClick={handleGenerateIteration}>generate</a> one.
+              To add a new iteration, start typing a prompt or
+              <a href='javascript:void(0)' onClick={handleGenerateIteration}>
+                generate
+              </a> one.
             </p>
           )
         }
@@ -90,16 +110,29 @@ const ExperimentModule = forwardRef(function ExperimentModule ({ id, imList, isL
         {isAddingIteration
           ? (
             <>
-              <button className='button' onClick={handleCancel}>cancel</button>
-              <button className='button active' onClick={handleDone}>done</button>
+              <button className='button' onClick={handleCancel}>
+                cancel
+              </button>
+              <button className='button active' onClick={handleDone}>
+                done
+              </button>
             </>)
           : (
             <>
-              <button className='button' onClick={handleToggleLock}>{isLocked ? 'unlock' : 'lock'}</button>
+              <button className='button' onClick={handleToggleLock}>
+                {isLocked ? 'unlock' : 'lock'}
+              </button>
               {!isLocked && (
                 <>
-                  <button className='button' onClick={handleReset}>reset</button>
-                  <button className='button active' onClick={handleAddIteration}>+ add iteration</button>
+                  <button className='button' onClick={handleReset}>
+                    reset
+                  </button>
+                  <button
+                    className='button active'
+                    onClick={handleAddIteration}
+                  >
+                    + add iteration
+                  </button>
                 </>
               )}
             </>)}

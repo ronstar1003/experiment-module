@@ -9,7 +9,13 @@ const NewIterationRow = forwardRef(({ index, onReturnKeyUp }, ref) => {
   return (
     <div className='new-iteration-row'>
       <div className='iteration-no'>EM-{index + 1}</div>
-      <input className='iteration-input' ref={ref} type='text' placeholder='Adding iteration...' onKeyUp={handleKeyUp} />
+      <input
+        className='iteration-input'
+        ref={ref}
+        type='text'
+        placeholder='Adding iteration...'
+        onKeyUp={handleKeyUp}
+      />
     </div>
   )
 })

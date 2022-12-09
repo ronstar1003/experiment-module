@@ -1,16 +1,26 @@
 import React from 'react'
 
-const selectionTagValues = ['short', 'medium length', 'very very very very long (up to 35 char)']
+const selectionTagValues = ['short', 'medium length',
+  'very very very very long (up to 35 char)']
 
 function SelectionTag ({ value, onClick, active = false }) {
   const handleClick = () => {
     onClick(value)
   }
 
-  return <div className={`iteration-selection-tag ${active && 'active'}`} onClick={handleClick}>{value}</div>
+  return (
+    <div
+      className={`iteration-selection-tag ${active && 'active'}`}
+      onClick={handleClick}
+    >{value}
+    </div>
+  )
 }
 
-export default function IterationModule ({ index, title, selection, isClosed, onRowClick, onSelectionChange, onDone, onRemove }) {
+export default function IterationModule ({
+  index, title, selection, isClosed,
+  onRowClick, onSelectionChange, onDone, onRemove
+}) {
   const handleRowClick = () => {
     if (isClosed) onRowClick(title)
   }
@@ -31,16 +41,35 @@ export default function IterationModule ({ index, title, selection, isClosed, on
       <div className='iteration-info'>
         <div className='iteration-head'>
           <div className='iteration-title'>{title}</div>
-          {isClosed && <div className={`iteration-selection ${selection && 'active'}`} title={selection}>{selection.slice(0, 20)}{selection.length > 20 && '...'}</div>}
+          {isClosed && (
+            <div
+              className={`iteration-selection ${selection && 'active'}`}
+              title={selection}
+            >{selection.slice(0, 20)}{selection.length > 20 && '...'}
+            </div>)}
         </div>
         {!isClosed && (
           <>
             <div className='iteration-body'>
-              {selectionTagValues.map(value => <SelectionTag key={value} value={value} active={selection === value} onClick={handleTagClick} />)}
+              {selectionTagValues.map(value => (
+                <SelectionTag
+                  key={value}
+                  value={value}
+                  active={selection === value}
+                  onClick={handleTagClick}
+                />))}
             </div>
             <div className='iteration-footer'>
-              <button className='button' onClick={handleRemove}>remove</button>
-              <button className='button active' onClick={handleDone}>done</button>
+              <button
+                className='button'
+                onClick={handleRemove}
+              >remove
+              </button>
+              <button
+                className='button active'
+                onClick={handleDone}
+              >done
+              </button>
             </div>
           </>
         )}

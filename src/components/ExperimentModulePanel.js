@@ -46,11 +46,15 @@ export default function ExperimentModulePanel () {
 
   const [openedEmId, setOpenedEmId] = useState(1)
 
-  const [refMap, setRefMap] = useState(defaultEmList.reduce((obj, em) => ({ ...obj, [em.id]: createRef() }), {}))
+  const [refMap, setRefMap] = useState(
+    defaultEmList.reduce((obj, em) => ({ ...obj, [em.id]: createRef() }), {})
+  )
 
   useEffect(() => {
     setRefMap((refMap) => {
-      return emList.reduce((obj, em) => ({ ...obj, [em.id]: refMap[em.id] || createRef() }), {})
+      return emList.reduce((obj, em) => (
+        { ...obj, [em.id]: refMap[em.id] || createRef() }
+      ), {})
     })
   }, [emList])
 
@@ -62,7 +66,9 @@ export default function ExperimentModulePanel () {
     if (iterationTitle === '') return false
     setEmList((emList) => emList.map(em => {
       if (emId !== em.id) return em
-      if (em.imList.findIndex(im => im.title === iterationTitle) !== -1) return em
+      if (em.imList.findIndex(im => im.title === iterationTitle) !== -1) {
+        return em
+      }
       return {
         ...em,
         imList: [
@@ -99,22 +105,23 @@ export default function ExperimentModulePanel () {
     return true
   }, [])
 
-  const handleIterationSelectionChange = useCallback((emId, imTitle, selection) => {
-    setEmList(emList => emList.map(em => {
-      if (emId !== em.id) return em
-      return {
-        ...em,
-        imList: em.imList.map(im => {
-          if (im.title !== imTitle) return im
-          return {
-            ...im,
-            selection
-          }
-        })
-      }
-    }))
-    return true
-  }, [])
+  const handleIterationSelectionChange = useCallback(
+    (emId, imTitle, selection) => {
+      setEmList(emList => emList.map(em => {
+        if (emId !== em.id) return em
+        return {
+          ...em,
+          imList: em.imList.map(im => {
+            if (im.title !== imTitle) return im
+            return {
+              ...im,
+              selection
+            }
+          })
+        }
+      }))
+      return true
+    }, [])
 
   const handleIterationRemove = useCallback((emId, imTitle) => {
     setEmList(emList => emList.map(em => {
