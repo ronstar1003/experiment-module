@@ -98,8 +98,10 @@ const ExperimentModule = forwardRef(function ExperimentModule (
         {
           isAddingIteration && (
             <p className='new-iteration-hint'>
-              To add a new iteration, start typing a prompt or
-              <a href='javascript:void(0)' onClick={handleGenerateIteration}>
+              To add a new iteration, start typing a prompt or{' '}
+              <a
+                href='javascript:void(0)'
+                onClick={handleGenerateIteration}>
                 generate
               </a> one.
             </p>
