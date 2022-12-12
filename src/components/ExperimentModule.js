@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import { FaLock, FaLockOpen } from 'react-icons/fa'
 import IterationModule from './IterationModule'
 import NewIterationRow from './NewIterationRow'
+import { generateIterationTitle } from '../utils'
 
 const ExperimentModule = forwardRef(function ExperimentModule (
   {
@@ -26,7 +27,7 @@ const ExperimentModule = forwardRef(function ExperimentModule (
     setIsAddingIteration(true)
   }
   const handleGenerateIteration = () => {
-    const iterationTitle = `Iteration ${imList.length + 1}`
+    const iterationTitle = generateIterationTitle(imList.map(im => im.title))
     if (onAddIteration(id, iterationTitle)) {
       setOpenedImTitle('')
       setIsAddingIteration(false)
@@ -98,8 +99,11 @@ const ExperimentModule = forwardRef(function ExperimentModule (
         {
           isAddingIteration && (
             <p className='new-iteration-hint'>
-              To add a new iteration, start typing a prompt or
-              <a href='javascript:void(0)' onClick={handleGenerateIteration}>
+              To add a new iteration, start typing a prompt or{' '}
+              <a
+                href='javascript:void(0)'
+                onClick={handleGenerateIteration}
+              >
                 generate
               </a> one.
             </p>
